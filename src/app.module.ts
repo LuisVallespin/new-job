@@ -1,4 +1,5 @@
-import { JobsModule } from './jobs/jobs.module';
+import { CompanyModule } from './companies/company.module';
+import { JobModule } from './jobs/job.module';
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -9,7 +10,8 @@ const env = process.env;
 
 @Module({
     imports: [
-        JobsModule,
+        CompanyModule,
+        JobModule,
         ConfigModule.forRoot({
             isGlobal: true,
         }),
