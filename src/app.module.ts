@@ -5,6 +5,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
+import { HttpModule } from '@nestjs/axios';
+import { ExternalJobSearcherService } from './external-job-searcher/external-job-searcher.service';
 
 const env = process.env;
 
@@ -18,8 +20,9 @@ const env = process.env;
         MongooseModule.forRoot(
             `mongodb+srv://${env.DATABASE_USER}:${env.DATABASE_PASSWORD}@${env.DATABASE_URL}/${env.DATABASE_NAME}?retryWrites=true&w=majority`,
         ),
+        HttpModule,
     ],
     controllers: [AppController],
-    providers: [AppService],
+    providers: [AppService, ExternalJobSearcherService],
 })
 export class AppModule {}
