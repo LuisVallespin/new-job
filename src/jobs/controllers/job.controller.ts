@@ -1,4 +1,4 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { BaseController } from 'src/generic/controllers/base-controller.abstract';
 import { Job } from '../schemas/job.schema';
 import { JobService } from '../services/job.service';

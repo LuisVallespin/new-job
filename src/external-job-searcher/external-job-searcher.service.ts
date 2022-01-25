@@ -1,18 +1,61 @@
 import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
 import { map, Observable, take } from 'rxjs';
+import { Company } from 'src/companies/schemas/company.schema';
 import { Job } from 'src/jobs/schemas/job.schema';
+import { IExternalJobSearcherService } from './external-job-searcher.service.interface';
 
+const defaultLimit = 20;
+const defaultUrl = `https://remotive.io/api/remote-jobs?limit=${defaultLimit}`;
 @Injectable()
-export class ExternalJobSearcherService {
+export class ExternalJobSearcherService implements IExternalJobSearcherService {
     constructor(private readonly httpService: HttpService) {}
 
-    getAll(limit: number): Observable<Job[]> {
-        return this.httpService
-            .get(`https://remotive.io/api/remote-jobs?limit=${limit}`)
+    getCompanies(): Observable<Company[]> {
+        return this.httpService.get(defaultUrl).pipe(
+            take(1),
+            map((item) => item.data.jobs),
+        );
+    }
+
+    getJobs(): Job[] {
+        let jobsList: Job[] = [];
+        this.httpService
+            .get(defaultUrl)
             .pipe(
                 take(1),
-                map((item) => item.data.jobs as Job[]),
-            );
+                map((item) => item.data.jobs),
+            )
+            .subscribe((values: any[]) => {
+                jobsList = this.mapJobs(values);
+            });
+        return jobsList;
+    }
+
+    public mapCompanies(values: any[]): Company[] {
+        return values.map((item: any) => {
+            return {
+                name: item.company_name,
+                logo: item.company_logo,
+            };
+        });
+    }
+
+    public mapJobs(values: any[]): Job[] {
+        return values.map((item: any) => {
+            return {
+                name: item.title,
+                url: item.url,
+                publicationDate: item.publication_date,
+                location: item.candidate_required_location,
+                description: item.description,
+                salary: item.salary,
+                contractType: item.job_type,
+                company: {
+                    name: item.company_name,
+                    logo: item.company_logo,
+                },
+            };
+        });
     }
 }

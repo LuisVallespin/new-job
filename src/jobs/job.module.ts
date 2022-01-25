@@ -4,6 +4,7 @@ import { Job, JobSchema } from './schemas/job.schema';
 import { JobController } from './controllers/job.controller';
 import { JobService } from './services/job.service';
 import { JobRepository } from './repository/job.repository';
+import { HttpModule } from '@nestjs/axios';
 
 @Module({
     imports: [

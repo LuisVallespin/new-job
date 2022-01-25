@@ -12,7 +12,7 @@ export abstract class BaseService<T> implements IBaseService<T> {
         return this.repository.find({});
     }
 
-    create(dto: any): Promise<T> {
+    async create(dto: any): Promise<T> {
         return this.repository.create({
             ...dto,
         });
@@ -20,5 +20,9 @@ export abstract class BaseService<T> implements IBaseService<T> {
 
     async update(_id: string, dto: any): Promise<T> {
         return this.repository.update({ _id }, dto);
+    }
+
+    async createMany(dto: any[]): Promise<T[]> {
+        return this.repository.createMany(dto);
     }
 }

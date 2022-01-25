@@ -9,7 +9,7 @@ export class Company {
     name: string;
 
     @Prop()
-    description: string;
+    logo: string;
 }
 
 export const CompanySchema = SchemaFactory.createForClass(Company);

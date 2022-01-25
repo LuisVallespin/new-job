@@ -8,4 +8,6 @@ export interface IBaseRepository<T> {
     create(item: T): Promise<T>;
 
     update(filterQuery: FilterQuery<T>, item: Partial<T>): Promise<T>;
+
+    createMany(item: T[]): Promise<T[]>;
 }
