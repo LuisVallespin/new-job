@@ -22,4 +22,8 @@ export abstract class BaseRepository<T> implements IBaseRepository<T> {
             new: true,
         });
     }
+
+    async createMany(items: T[]): Promise<T[]> {
+        return this.model.insertMany(items);
+    }
 }

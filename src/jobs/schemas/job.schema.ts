@@ -10,19 +10,22 @@ export class Job {
     name: string;
 
     @Prop()
-    salary: number;
-
-    @Prop()
-    searchingFor: string[];
+    salary: string;
 
     @Prop()
     location: string;
 
     @Prop()
-    schedule: string;
+    description: string;
 
     @Prop()
-    description: string;
+    url: string;
+
+    @Prop()
+    publicationDate: Date;
+
+    @Prop()
+    contractType: string;
 
     @Prop({ type: mongooseSchema.Types.ObjectId, ref: 'Company' })
     company: Company;

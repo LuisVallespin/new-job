@@ -7,5 +7,9 @@ export class JobDto {
     location?: string;
     schedule?: string;
     description?: string;
+    url?: string;
+    publicationDate?: Date;
+    contractType?: string;
+    requiredLocation?: string;
     company?: Company;
 }

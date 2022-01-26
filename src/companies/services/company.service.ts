@@ -12,4 +12,8 @@ export class CompanyService
     constructor(private readonly companyRepository: CompanyRepository) {
         super(companyRepository);
     }
+
+    async getOneByName(name: string): Promise<Company> {
+        return this.companyRepository.findOne({ name });
+    }
 }
