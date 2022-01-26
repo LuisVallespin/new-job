@@ -10,7 +10,7 @@ export class Job {
     name: string;
 
     @Prop()
-    salary: number;
+    salary: string;
 
     @Prop()
     location: string;

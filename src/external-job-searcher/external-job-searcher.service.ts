@@ -18,18 +18,11 @@ export class ExternalJobSearcherService implements IExternalJobSearcherService {
         );
     }
 
-    getJobs(): Job[] {
-        let jobsList: Job[] = [];
-        this.httpService
-            .get(defaultUrl)
-            .pipe(
-                take(1),
-                map((item) => item.data.jobs),
-            )
-            .subscribe((values: any[]) => {
-                jobsList = this.mapJobs(values);
-            });
-        return jobsList;
+    getJobs(): Observable<Job[]> {
+        return this.httpService.get(defaultUrl).pipe(
+            take(1),
+            map((item) => this.mapJobs(item.data.jobs)),
+        );
     }
 
     public mapCompanies(values: any[]): Company[] {
