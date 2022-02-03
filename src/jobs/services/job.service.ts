@@ -9,4 +9,8 @@ export class JobService extends BaseService<Job> implements IJobService {
     constructor(private readonly jobRepository: JobRepository) {
         super(jobRepository);
     }
+
+    async getJobsWithCompanies(): Promise<Job[]> {
+        return await this.jobRepository.getJobsWithCompanies();
+    }
 }

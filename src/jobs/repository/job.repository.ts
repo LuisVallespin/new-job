@@ -14,4 +14,10 @@ export class JobRepository
     ) {
         super(jobRepository);
     }
+
+    async getJobsWithCompanies(): Promise<Job[]> {
+        return await this.jobRepository
+            .find()
+            .populate('company', 'name logo -_id');
+    }
 }

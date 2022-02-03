@@ -38,4 +38,9 @@ export class JobController
             res.status(HttpStatus.INTERNAL_SERVER_ERROR).send();
         }
     }
+
+    @Get('withCompany')
+    async getJobsWithCompanies(): Promise<Job[]> {
+        return this.jobService.getJobsWithCompanies();
+    }
 }
